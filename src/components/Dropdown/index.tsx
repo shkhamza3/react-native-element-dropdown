@@ -30,6 +30,33 @@ import _ from 'lodash';
 const { isTablet, isIOS } = useDetectDevice;
 const ic_down = require('../../assets/down.png');
 
+export const checkInvalidity = (param: unknown) => {
+	if (
+		param === null ||
+		param === undefined ||
+		(param instanceof Object && Object.keys(param).length === 0) ||
+		(Array.isArray(param) && param.length === 0) ||
+		param === '' ||
+		param === 0 ||
+		param === '0' ||
+		Number.isNaN(param)
+	) {
+		return true;
+	}
+
+	return false;
+};
+
+export const handleLongName = (textString: string, limit: number) => {
+	if (checkInvalidity(textString)) {
+		return '';
+	}
+	if (textString.length >= limit && !checkInvalidity(textString)) {
+		return textString.substr(0, limit - 3) + '...';
+	}
+	return textString;
+};
+
 const defaultProps = {
   placeholder: 'Select item',
   activeColor: '#F6F7F8',
@@ -312,7 +339,7 @@ const DropdownComponent = React.forwardRef<any, DropdownProps>(
               {...selectedTextProps}
             >
               {isSelected !== null
-                ? _.get(currentValue, labelField)
+                ? handleLongName(_.get(currentValue, labelField), 15)
                 : placeholder}
             </Text>
             {renderRightIcon ? (
