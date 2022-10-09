@@ -587,7 +587,7 @@ const MultiSelectComponent = React.forwardRef<any, MultiSelectProps>(
               return (
                 <TouchableOpacity
                   testID={_.get(e, itemTestIDField || labelField)}
-                  key={_.get(e, labelField)}
+                  key={_.get(e, labelField)  + `${Math.random()`}
                   onPress={() => unSelect(e)}
                 >
                   {renderSelectedItem(e, () => {
@@ -599,7 +599,7 @@ const MultiSelectComponent = React.forwardRef<any, MultiSelectProps>(
               return (
                 <TouchableOpacity
                   testID={_.get(e, itemTestIDField || labelField)}
-                  key={_.get(e, labelField)}
+                  key={_.get(e, labelField) + `${Math.random()`}
                   style={[styles.selectedItem, selectedStyle]}
                   onPress={() => unSelect(e)}
                 >
